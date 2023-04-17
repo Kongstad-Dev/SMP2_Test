@@ -16,17 +16,13 @@ public class OrderConfirmation {
 
 
 
-    // TODO: Delete....
-//    String color;
-//    BigDecimal price;
-//    String str;
-
-
 
     BigDecimal amountSpent;
     BigDecimal totalTaxes;
+
+
+    // TODO: Placeholder String
     String productVisualization =  "Picture of product from DAM";
-    // TODO: ??? ProductQuantity is pr product, dunno if it should be here
 
     LocalDate timeOfArrival;
 
@@ -85,6 +81,11 @@ public class OrderConfirmation {
 
 
 
+
+    public void displayProductInformation(){
+        // TODO: Code to display all the product information
+
+    }
 
     public void convertToPDF(){
         // TODO: Code to convert it to PDF
