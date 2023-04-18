@@ -15,20 +15,8 @@ public class OrderConfirmation {
 
     ArrayList<ProductInformation> itemList;
     Customer customer;
-    List<Integer> productqty = new ArrayList<>();
 
-
-
-<<<<<<< HEAD
-
-    // TODO: Delete.
-//    String color;
-//    BigDecimal price;
-//    String str;
-
-
-=======
->>>>>>> PIM
+    
 
     BigDecimal amountSpent;
     BigDecimal totalTaxes;
@@ -93,8 +81,7 @@ public class OrderConfirmation {
     }
 
 
-<<<<<<< HEAD
-=======
+
 
 
     public void displayProductInformation(){
@@ -102,7 +89,7 @@ public class OrderConfirmation {
 
     }
 
->>>>>>> PIM
+
     public void convertToPDF(){
         // TODO: Code to convert it to PDF
     }
