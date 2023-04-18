@@ -1,5 +1,10 @@
+<<<<<<< HEAD:src/Graph.java
 import org.bson.*;
 import com.itextpdf.text.Document;
+=======
+package Visuals;
+
+>>>>>>> PIM:src/Visuals/Graph.java
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfTemplate;

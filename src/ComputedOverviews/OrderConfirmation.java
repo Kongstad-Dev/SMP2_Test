@@ -19,6 +19,7 @@ public class OrderConfirmation {
 
 
 
+<<<<<<< HEAD
 
     // TODO: Delete.
 //    String color;
@@ -26,11 +27,15 @@ public class OrderConfirmation {
 //    String str;
 
 
+=======
+>>>>>>> PIM
 
     BigDecimal amountSpent;
     BigDecimal totalTaxes;
+
+
+    // TODO: Placeholder String
     String productVisualization =  "Picture of product from DAM";
-    // TODO: ??? ProductQuantity is pr product, dunno if it should be here
 
     LocalDate timeOfArrival;
 
@@ -88,6 +93,16 @@ public class OrderConfirmation {
     }
 
 
+<<<<<<< HEAD
+=======
+
+
+    public void displayProductInformation(){
+        // TODO: Code to display all the product information
+
+    }
+
+>>>>>>> PIM
     public void convertToPDF(){
         // TODO: Code to convert it to PDF
     }
