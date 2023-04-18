@@ -7,15 +7,28 @@ import Customers.Customer;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 
 public class OrderConfirmation {
 
     ArrayList<ProductInformation> itemList;
     Customer customer;
+    List<Integer> productqty = new ArrayList<>();
 
 
 
+<<<<<<< HEAD
+
+    // TODO: Delete.
+//    String color;
+//    BigDecimal price;
+//    String str;
+
+
+=======
+>>>>>>> PIM
 
     BigDecimal amountSpent;
     BigDecimal totalTaxes;
@@ -80,6 +93,8 @@ public class OrderConfirmation {
     }
 
 
+<<<<<<< HEAD
+=======
 
 
     public void displayProductInformation(){
@@ -87,6 +102,7 @@ public class OrderConfirmation {
 
     }
 
+>>>>>>> PIM
     public void convertToPDF(){
         // TODO: Code to convert it to PDF
     }
@@ -97,11 +113,9 @@ public class OrderConfirmation {
 
         return 0;
     }
-
-
-
-
-
+    public LocalDate getDate() {
+        return LocalDate.now();
+    }
 
 
 
