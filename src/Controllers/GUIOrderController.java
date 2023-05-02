@@ -6,10 +6,13 @@ import javafx.animation.Timeline;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
+import java.time.LocalTime;
+
 public class GUIOrderController {
 
     private Label timeLabel;
 
+    @FXML
     private Timeline timeline;
 
     public void initialize() {
