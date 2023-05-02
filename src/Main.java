@@ -1,4 +1,5 @@
 import DB.DBManager;
+import DB.StockInterface;
 import MockShop.PlaceholderInstShop;
 import Visuals.TableCreator;
 import com.mongodb.client.MongoCollection;
@@ -11,7 +12,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class Main implements StockInterface {
     public static void main(String[] args) {
         System.out.println("Hello world!");
 
@@ -26,6 +27,7 @@ public class Main {
         System.out.println(PlaceholderInstShop.getInstShop1().getMap().get(PlaceHolderInstGet.getInst1().getProductUUID()));
 
         System.out.println(DBManager.updateStock(PlaceholderInstShop.getInstShop1()));
+        System.out.println(StockInterface.getStockValue(PlaceHolderInstGet.getInst3().getProductUUID()));
 
 
 
