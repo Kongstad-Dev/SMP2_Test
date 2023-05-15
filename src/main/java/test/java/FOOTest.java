@@ -1,5 +1,3 @@
-package Visuals;
-
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.mongodb.client.MongoClient;
