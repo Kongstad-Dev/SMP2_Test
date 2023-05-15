@@ -3,9 +3,17 @@ package ComputedOverviews;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+import static ComputedOverviews.MongoDBOC.getUUIDInfo;
 
 public class OrderConfirmationDJ {
 
@@ -129,25 +137,25 @@ public class OrderConfirmationDJ {
                     table.addCell(headerCell).setBackgroundColor(new BaseColor(186, 225, 255));
                 }
 
+                //Connect to database
+                String uri = "mongodb+srv://Kristoffer:123456789A@testerinvoice.t8c16zx.mongodb.net/test";
+                MongoClient mongoClient = MongoClients.create(uri);
+                MongoDatabase database = mongoClient.getDatabase("StockDB");
+                MongoCollection<org.bson.Document> OrderHistoryCollection = database.getCollection("OrderHistory");
+
+                //  Add data from database to and arraylist
+                String[] UUIDArray = getUUIDInfo(10, "UUID");
+                String[] AmountArray = getUUIDInfo(10, "Amount");
+
                 // Add row data to the table
-                table.addCell("Produkt 1");
-                table.addCell("2");
-                table.addCell("25 kr");
-                table.addCell("Produkt 2");
-                table.addCell("1");
-                table.addCell("50 kr");
-                table.addCell("Produkt 3");
-                table.addCell("3");
-                table.addCell("10 kr");
-                table.addCell("Produkt 4");
-                table.addCell("3");
-                table.addCell("15 kr");
-                table.addCell("Produkt 5");
-                table.addCell("3");
-                table.addCell("30 kr");
-                table.addCell("Produkt 6");
-                table.addCell("3");
-                table.addCell("20 kr");
+                int i = -1 ;
+                for (String UUID : UUIDArray) {
+                    i++;
+                    System.out.println(i);
+                    table.addCell(UUIDArray[i]);
+                    table.addCell(AmountArray[i]);
+                    table.addCell(UUIDArray[i]);
+                }
 
                 // Add the table to the document + Setting the position of the table
                 table.setTotalWidth(500);
@@ -156,16 +164,35 @@ public class OrderConfirmationDJ {
 
                 // Add delivery address + leverings metode + afsendelse dato
                 Paragraph paragraph = new Paragraph();
+                Paragraph paragraphLeft = new Paragraph();
+
                 paragraph.setAlignment(Element.ALIGN_CENTER);
                 paragraph.setIndentationLeft(40);
-                paragraph.setSpacingBefore(250);
+                paragraph.setSpacingBefore(200);
+                paragraphLeft.setIndentationLeft(40);
+                paragraphLeft.setSpacingBefore(0);
 
-                Phrase phrase1 = new Paragraph("Afleverings adresse:", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
-                Phrase phrase1S = new Paragraph("Adresse from shop");
-                Phrase phrase2 = new Paragraph("Leverings metode:", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
-                Phrase phrase2S = new Paragraph("Leverings metode from shop");
-                Phrase phrase3 = new Paragraph("Afsendelse dato:", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
-                Phrase phrase3S = new Paragraph(String.valueOf(LocalDate.now()));
+
+                Phrase phraseName = new Paragraph("Navn:" +"\n", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
+                Phrase phrase0NameS = new Paragraph("Oliver Homo Larsen" +"\n");
+                Phrase phraseEmail = new Paragraph("Email:" +"\n", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
+                Phrase phraseEmailS = new Paragraph("Oliver1703dk@hotmail.dk" +"\n");
+                Phrase phraseTLF = new Paragraph("tlf:" +"\n", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
+                Phrase phraseTLFS = new Paragraph("45+ 12 34 56 78" +"\n");
+
+                Phrase phrase1 = new Paragraph("Adresse:"  +"\n", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
+                Phrase phrase1S = new Paragraph("Adresse from shop" +"\n");
+                Phrase phrase2 = new Paragraph("Leverings metode:" +"\n", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
+                Phrase phrase2S = new Paragraph("Leverings metode from shop" +"\n");
+                Phrase phrase3 = new Paragraph("Afsendelse dato:" +"\n", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD));
+                Phrase phrase3S = new Paragraph(LocalDate.now() +"\n");
+
+                paragraphLeft.add(phraseName);
+                paragraphLeft.add(phrase0NameS);
+                paragraphLeft.add(phraseEmail);
+                paragraphLeft.add(phraseEmailS);
+                paragraphLeft.add(phraseTLF);
+                paragraphLeft.add(phraseTLFS);
 
                 paragraph.add(phrase1);
                 paragraph.add(phrase1S);
@@ -174,13 +201,57 @@ public class OrderConfirmationDJ {
                 paragraph.add(phrase3);
                 paragraph.add(phrase3S);
 
-                document.add(paragraph);
+                //document.add(paragraph);
+                //document.add(paragraphLeft);
 
+                // Create a table with two columns
+                PdfPTable tableColum = new PdfPTable(2);
+
+                // create the first paragraph and add it to the table
+                PdfPCell cellp1 = new PdfPCell(paragraphLeft);
+                cellp1.setBorder(Rectangle.NO_BORDER);
+                tableColum.addCell(cellp1);
+
+                // create the second paragraph and add it to the table
+                PdfPCell cellp2 = new PdfPCell(paragraph);
+                cellp2.setBorder(Rectangle.NO_BORDER);
+                tableColum.addCell(cellp2);
+
+                // add the table to the document
+                tableColum.setTotalWidth(500);
+                tableColum.writeSelectedRows(0, -1, 50, 220, writer.getDirectContent());
+
+
+
+                // adding product to OC
+
+                // Create the table
+                PdfPTable productTable = new PdfPTable(columnHeaders.length);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // Close the document
+                document.close();
 
                 // Close the document
                 document.close();
                 System.out.println("Order confirmation file #" + OrderConfirmationNumber + " created successfully.");
                 AmountOfOrders -= 1;
+                System.out.println(Arrays.toString(getUUIDInfo(10, "Amount")));
             } catch (DocumentException | IOException e) {
                 e.printStackTrace();
             }
