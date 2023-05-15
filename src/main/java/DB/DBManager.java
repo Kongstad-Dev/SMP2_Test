@@ -7,6 +7,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,6 +56,43 @@ public class DBManager {
         org.bson.Document results = conn.find(query).first();
 
         return results;
+    }
+
+
+    public static ArrayList<Integer> queryDBAllId(MongoCollection<Document> conn){
+
+        var filter = new Document();
+
+        // Define a projection to only retrieve the _id field of each document
+        var projection = new Document("_id", 1);
+
+        // Execute the query and retrieve a cursor over the resulting documents
+        var cursor = conn.find(filter).projection(projection).iterator();
+
+        // Iterate over the cursor and add each document ID to a list
+        var documentIds = new ArrayList<Integer>();
+        while (cursor.hasNext()) {
+            var document = cursor.next();
+            documentIds.add(document.getInteger("_id"));
+        }
+
+        return documentIds;
+
+    }
+
+
+
+
+
+    // Method to take everything that is max one day ago
+    public static List<Document> getRecentObjects(String database) {
+
+        MongoCollection<Document> collection = databaseConn(database);
+
+        LocalDate oneDayAgo = LocalDate.now().minusDays(1);
+        Document query = new Document("Date", new Document("$gte", oneDayAgo));
+        List<Document> recentObjects = collection.find(query).into(new ArrayList<>());
+        return recentObjects;
     }
 
 

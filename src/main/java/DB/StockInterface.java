@@ -1,16 +1,19 @@
 package DB;
 
 import MockShop.MockShopObject;
-import MockShop.PlaceholderInstShop;
 import OrderStatus.OrderManager;
+import com.example.testcopypastetest.HelloController;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.mongodb.client.model.Indexes.descending;
 
 public interface StockInterface {
 
@@ -50,19 +53,52 @@ public interface StockInterface {
 
     public static void sendOrderOMS(MockShopObject mockShopObject){
 
-        // Code to run all the code in OMS that requires
-        //--
 
+        // Code to add id and false to the list
+        MongoCollection<Document> collection = DBManager.databaseConn("OrderHistory");
+        Document document = collection.find().sort(descending("_id")).first();
+        int highestId = (document == null) ? 0 : document.getInteger("_id");
 
-        // Code to place in database
-        OrderManager.sendOrder(mockShopObject);
+        int id = highestId+1;
 
 
         // Code to update the ui in OrderGUI
-        
+        // Add to list
+//        HelloController.orderMap.put(id, false);
+        HelloController.idList.clear();
+        HelloController.statusList.clear();
+        HelloController.idList.add(id);
+        HelloController.statusList.add(Boolean.FALSE);
+
+        ArrayList<Integer> dbIdList = DBManager.queryDBAllId(DBManager.databaseConn("OrderHistory"));
+
+        for (int i = 0; i < dbIdList.size(); i++) {
+            HelloController.idList.add(dbIdList.get(i));
+            HelloController.statusList.add(Boolean.TRUE);
+        }
 
 
+
+
+
+        // Code to place in database Code to process
+        OrderManager.sendOrder(mockShopObject);
+
+
+
+
+
+
+        //-------------------------------------------------------------------
+        // Code to update the ui in OrderGUI Code to update the false to true
+//        HelloController.orderMap.put(id, true);
+
+
+
+
+        // Maybe
         // Code to update the orderConfirmation
+
 
         // Code to generate the orderConfirmation
 
