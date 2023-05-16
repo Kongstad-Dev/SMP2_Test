@@ -12,6 +12,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import mockPIM.PlaceHolderInstGet;
+import mockPIM.ProductInformation;
 
 import static ComputedOverviews.MongoDBOC.getUUIDInfo;
 
@@ -21,6 +23,12 @@ public class OrderConfirmationDJ {
     static int OrderConfirmationNumber = 10000000;
 
     public static void main(String[] args) {
+
+
+
+
+
+
 
         while (AmountOfOrders > 0) {
 
