@@ -1,4 +1,4 @@
-package com.example.testcopypastetest;
+package com.example.ecommerceprototype;
 
 import DB.DBManager;
 import MockShop.MockShopObject;
